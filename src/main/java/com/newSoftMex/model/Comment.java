@@ -19,21 +19,17 @@ public class Comment {
     @NotNull
     private String comment;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="comment", cascade = CascadeType.ALL)
-    private List<Contract> contracts;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name="idUser")
+    private User userDoer;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="comment", cascade = CascadeType.ALL)
-    private List<Comment> comments;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name="idUserService")
+    private User idUserServiceCommented;
 
     public Comment() {
-    }
-
-    public Comment(String comment, List<Contract> contracts, List<Comment> comments) {
-        this.comment = comment;
-        this.contracts = contracts;
-        this.comments = comments;
     }
 
     public Long getId() {
@@ -52,19 +48,19 @@ public class Comment {
         this.comment = comment;
     }
 
-    public List<Contract> getContracts() {
-        return contracts;
+    public User getUserDoer() {
+        return userDoer;
     }
 
-    public void setContracts(List<Contract> contracts) {
-        this.contracts = contracts;
+    public void setUserDoer(User userDoer) {
+        this.userDoer = userDoer;
     }
 
-    public List<Comment> getComments() {
-        return comments;
+    public User getIdUserServiceCommented() {
+        return idUserServiceCommented;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
+    public void setIdUserServiceCommented(User idUserServiceCommented) {
+        this.idUserServiceCommented = idUserServiceCommented;
     }
 }

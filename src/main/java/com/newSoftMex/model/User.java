@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,6 +35,17 @@ public class User {
     private String password;
 
     @NotNull
+    private Long sex;
+
+    private String image;
+
+    private String telephone;
+
+    private String cellphone;
+
+    private Date premiumDate;
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name="id_role")
     private UserRole userRole;
@@ -54,40 +66,18 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy="userService", cascade = CascadeType.ALL)
     private List<Service> services;
 
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="userDoer", cascade = CascadeType.ALL)
+    private List<Comment> commentMade;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="idUserServiceCommented", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
     @NotNull
     private boolean enabled;
 
-    public User(String name, String last_name, String email, String password, UserRole userRole) {
-        this.name = name;
-        this.last_name = last_name;
-        this.email = email;
-        this.password = password;
-        this.userRole = userRole;
-        enabled=false;
-    }
-
-    public User(String name, String last_name, String email, String password) {
-        this.name = name;
-        this.last_name = last_name;
-        this.email = email;
-        this.password = password;
-    }
-
     public User() {
-    }
-
-    public User(String username, String name, String last_name, String email, String password, UserRole userRole, List<Contract> contracts, List<Cupon> cupons, List<Note> notes, List<Service> services, boolean enabled) {
-        this.username = username;
-        this.name = name;
-        this.last_name = last_name;
-        this.email = email;
-        this.password = password;
-        this.userRole = userRole;
-        this.contracts = contracts;
-        this.cupons = cupons;
-        this.notes = notes;
-        this.services = services;
-        this.enabled = enabled;
     }
 
     public Long getId() {
@@ -184,5 +174,61 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Long getSex() {
+        return sex;
+    }
+
+    public void setSex(Long sex) {
+        this.sex = sex;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Date getPremiumDate() {
+        return premiumDate;
+    }
+
+    public void setPremiumDate(Date premiumDate) {
+        this.premiumDate = premiumDate;
+    }
+
+    public List<Comment> getCommentMade() {
+        return commentMade;
+    }
+
+    public void setCommentMade(List<Comment> commentMade) {
+        this.commentMade = commentMade;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getCellphone() {
+        return cellphone;
+    }
+
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
     }
 }

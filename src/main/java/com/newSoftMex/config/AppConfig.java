@@ -1,6 +1,7 @@
 package com.newSoftMex.config;
 
 
+import com.newSoftMex.filter.OptionsHeadersFilter;
 import com.newSoftMex.security.SecurityConfig;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,7 @@ public class AppConfig{
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
+
 
     /*@Bean
     public MessageSource messageSource() {

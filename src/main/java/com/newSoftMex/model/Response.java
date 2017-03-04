@@ -8,6 +8,8 @@ public class Response<T> {
 
     private String errorMessage;
 
+    private String status;
+
     private Boolean success;
 
     private T data;
@@ -43,5 +45,13 @@ public class Response<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

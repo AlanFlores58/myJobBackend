@@ -22,6 +22,10 @@ public class ServiceType {
 
     private String description;
 
+    private String image;
+
+    private byte[] photo;
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy="serviceType", cascade = CascadeType.ALL)
     private List<Service> services;
@@ -32,6 +36,14 @@ public class ServiceType {
     }
 
     public ServiceType() {
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Long getId() {
@@ -56,5 +68,13 @@ public class ServiceType {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 }
