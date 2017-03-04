@@ -1,7 +1,11 @@
 package com.newSoftMex.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by alan.flores on 1/5/17.
@@ -24,6 +28,12 @@ public class Cupon {
     @JoinColumn(name="idUser")
     private User userCupon;
 
+    private Date date;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="cupon", cascade = CascadeType.ALL)
+    private List<Contract> contracts;
+
     public Cupon(double discount, boolean state, User userCupon) {
         this.discount = discount;
         this.state = state;
@@ -31,6 +41,14 @@ public class Cupon {
     }
 
     public Cupon() {
+    }
+
+    public List<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
     }
 
     public Long getId() {
@@ -63,5 +81,13 @@ public class Cupon {
 
     public void setUserCupon(User userCupon) {
         this.userCupon = userCupon;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
