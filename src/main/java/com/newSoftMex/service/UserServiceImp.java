@@ -48,7 +48,7 @@ public class UserServiceImp implements UserService {
     public Response<User> registerUser(String name, String lastname,  String email, String username, String password, Long type, Long sex, String url, String image, String cellphone, String telephone){
         Response<User> response = new Response<>();
         StringBuilder text = new StringBuilder("Somos my job y queremos que autentifique su cuenta aqui: ");
-        text.append(url + "?username=" + username);
+        text.append(url + "?username=" + username.replace(" ","%20"));
 
         try {
             UserRole userRole = userRoleRepository.findOne(type);
@@ -101,9 +101,10 @@ public class UserServiceImp implements UserService {
                 credentials.setId(user.getId());
                 credentials.setUsername(user.getUsername());
                 credentials.setRole(user.getUserRole().getName());
-                credentials.setToken(jwtManager.createJWT(username,user.getPassword(),user.getUserRole().getName(),user.getId(),1200000,user.getImage(), user.getPremiumDate()));
+                credentials.setToken(jwtManager.createJWT(username,user.getPassword(),user.getUserRole().getName(),user.getId(),1200000,user.getImage(), user.getPremiumDate(), user.getEmail()));
                 credentials.setPassword(user.getPassword());
                 credentials.setPremiumDate(user.getPremiumDate());
+                credentials.setEmail(user.getEmail());
                 response.setData(credentials);
                 response.setErrorMessage(null);
                 response.setMessage("User enable " + username);
@@ -136,8 +137,9 @@ public class UserServiceImp implements UserService {
                 credentials.setUsername(user.getUsername());
                 credentials.setPassword(user.getPassword());
                 credentials.setRole(user.getUserRole().getName());
-                credentials.setToken(jwtManager.createJWT(username,user.getPassword(),user.getUserRole().getName(),user.getId(),1200000, user.getImage(), user.getPremiumDate()));
+                credentials.setToken(jwtManager.createJWT(username,user.getPassword(),user.getUserRole().getName(),user.getId(),1200000, user.getImage(), user.getPremiumDate(), user.getEmail()));
                 credentials.setPremiumDate(user.getPremiumDate());
+                credentials.setEmail(user.getEmail());
                 response.setData(credentials);
                 response.setErrorMessage(null);
                 response.setMessage("Authenticate.");
@@ -285,8 +287,9 @@ public class UserServiceImp implements UserService {
                 credentials.setId(user.getId());
                 credentials.setUsername(user.getUsername());
                 credentials.setRole(user.getUserRole().getName());
-                credentials.setToken(jwtManager.createJWT(username,user.getPassword(),user.getUserRole().getName(),user.getId(),1200000,user.getImage(), user.getPremiumDate()));
+                credentials.setToken(jwtManager.createJWT(username,user.getPassword(),user.getUserRole().getName(),user.getId(),1200000,user.getImage(), user.getPremiumDate(), user.getEmail()));
                 credentials.setPassword(user.getPassword());
+                credentials.setEmail(user.getEmail());
                 credentials.setPremiumDate(user.getPremiumDate());
                 response.setData(credentials);
                 response.setErrorMessage(null);

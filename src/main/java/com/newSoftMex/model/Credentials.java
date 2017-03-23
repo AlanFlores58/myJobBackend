@@ -23,6 +23,8 @@ public class Credentials {
 
     private Date premiumDate;
 
+    private String email;
+
     public Credentials() {
     }
 
@@ -31,6 +33,13 @@ public class Credentials {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Long getId() {
         return id;
