@@ -22,7 +22,7 @@ public class JWTManager {
 
     private String encodedKey = "ggIpqzi6HYWyUsWpOnV0uA==";
 
-    public String createJWT(String username, String password, String role,Long id, long ttlMillis, String image, Date premiumDate) {
+    public String createJWT(String username, String password, String role,Long id, long ttlMillis, String image, Date premiumDate, String email) {
 
         //The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -49,6 +49,7 @@ public class JWTManager {
         claims.put("role",role);
         claims.put("image",image);
         claims.put("premiumDate",premiumDate);
+        claims.put("email",email);
         JwtBuilder builder = Jwts.builder().setHeaderParam("typ","JWT")
                 .setClaims(claims)
                 .signWith(signatureAlgorithm, signingKey);
@@ -84,6 +85,7 @@ public class JWTManager {
         credentials.setRole(claims.get("role",String.class));
         credentials.setImage(claims.get("image",String.class));
         credentials.setToken(jwt);
+        credentials.setEmail(claims.get("email",String.class));
         credentials.setPremiumDate(claims.get("premiumDate",Date.class));
         return credentials;
     }
